@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <!-- 需要引入 才能使用ajaxSubmit  -->
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h2>CSV send test:</h2>
+
+
+
+    <form id="domeform1" method="post" enctype="multipart/form-data" >
+        <input type="file" name="file" value="选择文件">
+        fac_full: <input type="text" name="fac_full" > <br>
+        fac_distance: <input type="text" name="fac_distance" ><br>
+        fac_time: <input type="text" name="fac_time" > <br>
+        <input type="button" value="dis提交" id="ajaxsub1" class="btn btn-primary">
+    </form>
+
+    <br/><br/><br/><br/>
+
+    <form id="domeform2" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" value="选择文件">
+        fac_full: <input type="text" name="fac_full" > <br>
+        fac_distance: <input type="text" name="fac_distance" ><br>
+        fac_time: <input type="text" name="fac_time" > <br>
+        <input type="button" value="coo提交" id="ajaxsub2">
+    </form>
+
+</div>
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $(function(){
+       $("#ajaxsub1").click(function(){
+            $("#domeform1").ajaxSubmit({
+                url: "http://127.0.0.1:5000/csv_dis",
+                type: "POST",
+
+                dataType: "json",
+                success: function (data) {
+                    //获取结果，转换json字符串为json对象
+                    //var obj = JSON.parse(data);
+                    console.log(data);
+                },
+                error: function (e) {
+                    console.log('error')
+                }
+            })
+        })
+    });
+
+    $(function(){
+       $("#ajaxsub2").click(function(){
+            $("#domeform2").ajaxSubmit({
+                url: "http://127.0.0.1:5000/csv_coo",
+                type: "POST",
+                dataType: "json",
+                success: function (data) {
+                    //获取结果，转换json字符串为json对象
+                    //var obj = JSON.parse(data);
+                    console.log(data);
+                },
+                error: function (e) {
+                    console.log('error')
+                }
+            })
+        })
+    })
+</script>

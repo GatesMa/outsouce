@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h2>Json send test:</h2>
+
+    <button onclick="test()" type="button" class="btn btn-primary">GET Send.</button>
+
+</div>
+
+
+</body>
+</html>
+
+
+<script>
+
+
+    function test() {
+        let url = 'http://47.102.121.0:5027/solve';
+        //let url = 'http://127.0.0.1:5000/solve';
+        $.ajax({
+              url: url,
+              type: 'POST',
+              contentType:'application/json',
+              headers: {
+                'Content-Type':'application/json'
+              },
+              beforeSend: function (req) {
+                req.setRequestHeader('Access-Control-Allow-Origin', '*');
+              },
+              data: JSON.stringify({
+                  'num': 8,
+                  'dis': [[0.0, 7.4, 12.1, 5.3, 6.6, 8.2, 11.9, 11.2, 10.8], [7.4, 0.0, 5.8, 9.0, 7.1, 11.4, 12.8, 6.9, 10.7], [12.1, 5.8, 0.0, 12.2, 9.4, 10.1, 13.7, 2.8, 9.0], [5.3, 9.0, 12.2, 0.0, 4.9, 4.1, 7.8, 11.9, 8.5], [6.6, 7.1, 9.4, 4.9, 0.0, 4.0, 6.0, 6.6, 4.0], [8.2, 11.4, 10.1, 4.1, 4.0, 0.0, 3.9, 10.0, 4.4], [11.9, 12.8, 13.7, 7.8, 6.0, 3.9, 0.0, 10.8, 5.7], [11.2, 6.9, 2.8, 11.9, 6.6, 10.0, 10.8, 0.0, 5.5], [10.8, 10.7, 9.0, 8.5, 4.0, 4.4, 5.7, 5.5, 0.0]],
+                  'dem': [0.0, 2.0, 1.5, 4.5, 3.0, 1.5, 4.0, 2.5, 3.0],
+                  'carLoad': {'6.0': 2, '8.5': 2, '3.0': 2, '2.0': 1},
+                  'edge_max': 10.0,
+                  'loop_max': 999.0,
+                  'speed': 1,
+                  'uTime': 5,
+
+                  'max_iter': 35,
+                  'max_population': 1000,
+                  'fac_full': 5,
+                  'fac_distance': 4,
+                  'fac_time': 3
+              }),
+              success: function(data) {
+                  //获取结果，转换json字符串为json对象
+                  var obj = JSON.parse(data);
+                  console.log(obj)
+              },
+              error: function() { alert('error'); }
+        });
+    }
+
+</script>
+
